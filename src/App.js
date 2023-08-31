@@ -19,7 +19,7 @@ function App() {
   };
 
   const [tree, setTree] = useState(treeData);
-  console.log(tree);
+  const [exportData, setExoprtData] = useState('');
 
   const handleTagNameChange = (tag, newName) => {
     tag.name = newName;
@@ -27,6 +27,9 @@ function App() {
   }
 
   const handleAddChild = (tag) => {
+    if (tag.data) {
+      delete tag.data;
+    }
     if (!tag.children) {
       tag.children = [];
     }
@@ -39,6 +42,11 @@ function App() {
     setTree({ ...tree });
   }
 
+  const handleExport = () => {
+    const data = JSON.stringify(tree);
+    setExoprtData(data);
+  }
+
   return (
     <div className="App">
       <TagView
@@ -47,6 +55,8 @@ function App() {
         onAddChild={handleAddChild}
         onDataNameChange={handleDataNameChange}
       />
+      <button className='export' onClick={handleExport}>Export</button>
+      <pre className='exportData'>{exportData}</pre>
     </div>
   );
 }

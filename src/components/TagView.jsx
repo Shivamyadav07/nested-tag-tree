@@ -31,14 +31,17 @@ export const TagView = ({ tag, onTagNameChange, onAddChild, onDataNameChange }) 
     return (
         <div className='tag'>
             <div className='tagHeader'>
-                <button onClick={handleShowData}>{showData ? "v" : ">"}</button>
-                <input type='text' defaultValue={tag.name} onChange={handleTagNameChange} onKeyDown={setNewTagName} color='black' />
-                <button onClick={handleAddChild}>Add Child</button>
+                <div className='showData'>
+                    <button onClick={handleShowData}>{showData ? "v" : ">"}</button>
+                </div>
+                <input type='text' className='tagInput' defaultValue={tag.name} onChange={handleTagNameChange} onKeyDown={setNewTagName} color='black' />
+                <button className='addChild' onClick={handleAddChild}>Add Child</button>
             </div>
             {showData && (
                 <div className='tagContent'>
                     {tag.data !== undefined && (
-                        <div>
+                        <div className='tagContentData'>
+                            Data:
                             <input type='text' defaultValue={tag.data} onChange={handleDataNameChange} />
                         </div>
                     )}
