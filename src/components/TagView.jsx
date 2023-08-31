@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export const TagView = ({ tag, onTagNameChange }) => {
+export const TagView = ({ tag, onTagNameChange, onAddChild,onDataNameChange }) => {
     console.log(tag.name);
     const [showData, setShowData] = useState(false);
     const [tagName, setTagName] = useState("");
@@ -14,10 +14,18 @@ export const TagView = ({ tag, onTagNameChange }) => {
     }
 
     const setNewTagName = (event) => {
-        if(event.key==="Enter"){
-            onTagNameChange(tag,event.target.value);
+        if (event.key === "Enter") {
+            onTagNameChange(tag, event.target.value);
             event.target.blur()
         }
+    }
+
+    const handleAddChild = () => {
+        onAddChild(tag);
+    }
+
+    const handleDataNameChange = (event) => {
+        onDataNameChange(tag, event.target.value);
     }
 
     return (
@@ -25,7 +33,17 @@ export const TagView = ({ tag, onTagNameChange }) => {
             <div className='tagHeader'>
                 <button onClick={handleShowData}>{showData ? "v" : ">"}</button>
                 <input type='text' defaultValue={tag.name} onChange={handleTagNameChange} onKeyDown={setNewTagName} color='black' />
+                <button onClick={handleAddChild}>Add Child</button>
             </div>
+            {showData && (
+                <div className='tagContent'>
+                    {tag.data !== undefined && (
+                        <div>
+                            <input type='text' defaultValue={tag.data} onChange={handleDataNameChange} />
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     )
 }

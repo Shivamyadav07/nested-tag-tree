@@ -26,11 +26,26 @@ function App() {
     setTree({ ...tree })
   }
 
+  const handleAddChild = (tag) => {
+    if (!tag.children) {
+      tag.children = [];
+    }
+    tag.children.push({ "name": "New Child", "data": "Data" });
+    setTree({ ...tree });
+  }
+
+  const handleDataNameChange = (tag, newName) => {
+    tag.data = newName;
+    setTree({ ...tree });
+  }
+
   return (
     <div className="App">
       <TagView
         tag={tree}
         onTagNameChange={handleTagNameChange}
+        onAddChild={handleAddChild}
+        onDataNameChange={handleDataNameChange}
       />
     </div>
   );
